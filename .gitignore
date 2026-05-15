@@ -36,6 +36,12 @@ yarn-error.log*
 # vercel
 .vercel
 
+# Browser "Save Page As" exports
+/*.html
+/*.htm
+/*_files/
+/MVP*
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
