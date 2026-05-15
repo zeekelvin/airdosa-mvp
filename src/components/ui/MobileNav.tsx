@@ -1,0 +1,168 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
+import { Menu, X } from "lucide-react";
+
+const LINKS = [
+  { href: "#rotate", label: "Showcase", n: "01" },
+  { href: "#fleet", label: "Fleet", n: "02" },
+  { href: "#specs", label: "Performance", n: "03" },
+  { href: "#reserve", label: "Reserve", n: "04" },
+];
+
+export function MobileNav() {
+  const [open, setOpen] = useState(false);
+
+  // Close when SmoothScroll fires nav:scrolled (a link inside us was clicked)
+  useEffect(() => {
+    const onNav = () => setOpen(false);
+    window.addEventListener("nav:scrolled", onNav);
+    return () => window.removeEventListener("nav:scrolled", onNav);
+  }, []);
+
+  // Lock body scroll while open
+  useEffect(() => {
+    if (open) {
+      const prev = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = prev;
+      };
+    }
+  }, [open]);
+
+  // ESC closes
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
+  return (
+    <>
+      <button
+        type="button"
+        aria-label={open ? "Close menu" : "Open menu"}
+        onClick={() => setOpen((v) => !v)}
+        className="pointer-events-auto fixed right-5 top-5 z-[80] flex h-11 w-11 items-center justify-center rounded-full border border-fg/15 bg-bg/70 backdrop-blur-md transition-colors hover:border-accent hover:text-accent md:hidden"
+      >
+        <AnimatePresence mode="wait" initial={false}>
+          {open ? (
+            <motion.span
+              key="close"
+              initial={{ rotate: -90, opacity: 0 }}
+              animate={{ rotate: 0, opacity: 1 }}
+              exit={{ rotate: 90, opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              className="flex"
+            >
+              <X size={20} strokeWidth={1.5} />
+            </motion.span>
+          ) : (
+            <motion.span
+              key="open"
+              initial={{ rotate: 90, opacity: 0 }}
+              animate={{ rotate: 0, opacity: 1 }}
+              exit={{ rotate: -90, opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              className="flex"
+            >
+              <Menu size={20} strokeWidth={1.5} />
+            </motion.span>
+          )}
+        </AnimatePresence>
+      </button>
+
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            key="overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            className="fixed inset-0 z-[70] md:hidden"
+          >
+            {/* Layered background reveal */}
+            <motion.div
+              initial={{ scaleY: 0, originY: 0 }}
+              animate={{ scaleY: 1 }}
+              exit={{ scaleY: 0, originY: 1 }}
+              transition={{ duration: 0.7, ease: [0.83, 0, 0.17, 1] }}
+              className="absolute inset-0 bg-bg"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-black via-black/95 to-black/100" />
+
+            {/* Content */}
+            <div className="relative z-[1] flex h-full flex-col justify-between px-6 py-12">
+              <div>
+                <motion.span
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.4 }}
+                  className="block font-mono text-[10px] uppercase tracking-[0.42em] text-fg/55"
+                >
+                  AIRDOSA · Presents
+                </motion.span>
+                <motion.span
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.5 }}
+                  className="mt-1 block font-display text-xl uppercase tracking-[0.28em] text-fg"
+                >
+                  MVP
+                </motion.span>
+              </div>
+
+              <nav className="flex flex-col gap-1">
+                {LINKS.map((link, i) => (
+                  <motion.a
+                    key={link.href}
+                    href={link.href}
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 20 }}
+                    transition={{
+                      duration: 0.7,
+                      delay: 0.45 + i * 0.1,
+                      ease: [0.22, 1, 0.36, 1],
+                    }}
+                    className="group flex items-baseline gap-4 border-b border-fg/10 py-5 transition-colors hover:text-accent"
+                  >
+                    <span className="font-mono text-[10px] uppercase tracking-[0.32em] text-fg/40 group-hover:text-accent">
+                      {link.n}
+                    </span>
+                    <span className="font-display text-5xl uppercase leading-[0.9] tracking-tight sm:text-6xl">
+                      {link.label}
+                    </span>
+                    <span className="ml-auto h-2 w-2 self-center rounded-full bg-fg/20 transition-colors group-hover:bg-accent" />
+                  </motion.a>
+                ))}
+              </nav>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.95 }}
+                className="flex flex-col gap-4"
+              >
+                <a
+                  href="#reserve"
+                  className="flex w-full items-center justify-center rounded-full bg-accent px-7 py-4 font-mono text-xs font-semibold uppercase tracking-[0.22em] text-black transition-colors hover:bg-accent/90"
+                >
+                  Reserve a Drive →
+                </a>
+                <span className="text-center font-mono text-[10px] uppercase tracking-[0.32em] text-fg/35">
+                  MIA · 24/7 Concierge
+                </span>
+              </motion.div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+}

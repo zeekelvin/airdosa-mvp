@@ -61,7 +61,7 @@ export function RotationScrub() {
     <section
       ref={sectionRef}
       id="rotate"
-      className="relative h-[280vh] w-full bg-bg"
+      className="relative h-[160vh] w-full bg-bg"
     >
       <div className="sticky top-0 h-[100svh] w-full overflow-hidden">
         {/* Rotation video — scrubbed by scroll */}

@@ -5,6 +5,7 @@ import { SmoothScroll } from "@/components/ui/SmoothScroll";
 import { MagneticCursor } from "@/components/ui/MagneticCursor";
 import { PageBackground } from "@/components/ui/PageBackground";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
+import { MobileNav } from "@/components/ui/MobileNav";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -43,6 +44,7 @@ export default function RootLayout({
         <SmoothScroll />
         <MagneticCursor />
         <ScrollProgress />
+        <MobileNav />
         {children}
       </body>
     </html>

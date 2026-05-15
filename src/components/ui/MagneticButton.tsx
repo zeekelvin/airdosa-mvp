@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useMotionValue, useSpring } from "motion/react";
-import { useRef, type ComponentProps, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ComponentProps, type ReactNode } from "react";
 import { cn } from "@/lib/cn";
 
 type Props = ComponentProps<typeof motion.button> & {
@@ -22,7 +22,14 @@ export function MagneticButton({
   const sx = useSpring(x, { stiffness: 220, damping: 18, mass: 0.4 });
   const sy = useSpring(y, { stiffness: 220, damping: 18, mass: 0.4 });
 
+  // Disable the magnetic pull on touch devices — feels broken on tap
+  const [magnetic, setMagnetic] = useState(false);
+  useEffect(() => {
+    setMagnetic(window.matchMedia("(hover: hover) and (pointer: fine)").matches);
+  }, []);
+
   const onMove = (e: React.PointerEvent) => {
+    if (!magnetic) return;
     const el = ref.current;
     if (!el) return;
     const r = el.getBoundingClientRect();
@@ -42,9 +49,9 @@ export function MagneticButton({
       onPointerMove={onMove}
       onPointerLeave={onLeave}
       data-cursor="hover"
-      style={{ x: sx, y: sy }}
+      style={magnetic ? { x: sx, y: sy } : undefined}
       className={cn(
-        "group relative inline-flex items-center justify-center overflow-hidden rounded-full px-7 py-3 text-sm font-semibold uppercase tracking-[0.18em] transition-colors",
+        "group relative inline-flex items-center justify-center overflow-hidden rounded-full px-6 py-3 text-xs font-semibold uppercase tracking-[0.18em] transition-colors sm:px-7 sm:text-sm",
         className,
       )}
       {...rest}

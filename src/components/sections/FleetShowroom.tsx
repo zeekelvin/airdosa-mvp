@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState } from "react";
-import { motion, useScroll, useTransform } from "motion/react";
+import { useEffect, useRef, useState } from "react";
+import { motion, useInView, useScroll, useTransform } from "motion/react";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 import { cn } from "@/lib/cn";
 
@@ -149,6 +149,13 @@ function FleetTile({ car, index }: { car: FleetVehicle; index: number }) {
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [videoExists, setVideoExists] = useState(true);
   const tileRef = useRef<HTMLDivElement | null>(null);
+  const inViewActive = useInView(tileRef, { margin: "-20%" });
+  const [isTouch, setIsTouch] = useState(false);
+
+  useEffect(() => {
+    setIsTouch(window.matchMedia("(hover: none)").matches);
+  }, []);
+
   const { scrollYProgress } = useScroll({
     target: tileRef,
     offset: ["start end", "end start"],
@@ -158,25 +165,28 @@ function FleetTile({ car, index }: { car: FleetVehicle; index: number }) {
 
   // Bento span classes
   const spanClass = {
-    feature: "sm:col-span-6 sm:row-span-2 aspect-[16/8] sm:aspect-[16/7]",
+    feature: "sm:col-span-6 sm:row-span-2 aspect-[16/9] sm:aspect-[16/7]",
     wide: "sm:col-span-4 aspect-[16/9]",
-    tall: "sm:col-span-2 sm:row-span-2 aspect-[3/4] sm:aspect-[3/5]",
-    square: "sm:col-span-2 aspect-square",
+    tall: "sm:col-span-2 sm:row-span-2 aspect-[4/5] sm:aspect-[3/5]",
+    square: "sm:col-span-2 aspect-[16/10] sm:aspect-square",
   }[car.span];
 
-  const onEnter = () => {
-    setHover(true);
+  // Play state: desktop = hover, mobile = in viewport
+  const shouldPlay = isTouch ? inViewActive : hover;
+  const shouldRevealSpecs = hover || (isTouch && inViewActive);
+
+  useEffect(() => {
     const v = videoRef.current;
-    if (v && videoExists) {
-      v.currentTime = 0;
+    if (!v || !videoExists) return;
+    if (shouldPlay) {
       v.play().catch(() => {});
+    } else {
+      v.pause();
     }
-  };
-  const onLeave = () => {
-    setHover(false);
-    const v = videoRef.current;
-    if (v) v.pause();
-  };
+  }, [shouldPlay, videoExists]);
+
+  const onEnter = () => setHover(true);
+  const onLeave = () => setHover(false);
 
   return (
     <motion.div
@@ -208,7 +218,7 @@ function FleetTile({ car, index }: { car: FleetVehicle; index: number }) {
           fill
           sizes="(max-width: 768px) 100vw, 60vw"
           className={`object-cover object-center transition-all duration-700 ${
-            hover ? "scale-110 opacity-30" : "scale-100 opacity-100"
+            shouldPlay ? "scale-110 opacity-30" : "scale-100 opacity-100"
           }`}
         />
         {videoExists && (
@@ -222,7 +232,7 @@ function FleetTile({ car, index }: { car: FleetVehicle; index: number }) {
             onCanPlay={() => setVideoLoaded(true)}
             onError={() => setVideoExists(false)}
             className={`absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-700 ${
-              hover && videoLoaded ? "opacity-100" : "opacity-0"
+              shouldPlay && videoLoaded ? "opacity-100" : "opacity-0"
             }`}
           />
         )}
@@ -231,7 +241,7 @@ function FleetTile({ car, index }: { car: FleetVehicle; index: number }) {
       {/* Gradient overlay */}
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-black/30" />
 
-      {/* Headlight ember on hover */}
+      {/* Headlight ember when active */}
       <motion.div
         aria-hidden
         className="pointer-events-none absolute h-32 w-32 rounded-full blur-3xl mix-blend-screen"
@@ -242,12 +252,12 @@ function FleetTile({ car, index }: { car: FleetVehicle; index: number }) {
             "radial-gradient(closest-side, rgba(255,238,170,0.6), transparent 70%)",
         }}
         animate={{
-          opacity: hover ? [0.4, 0.95, 0.6, 1, 0.4] : 0,
-          scale: hover ? [0.9, 1.15, 1.0, 1.2, 0.9] : 0.8,
+          opacity: shouldPlay ? [0.4, 0.95, 0.6, 1, 0.4] : 0,
+          scale: shouldPlay ? [0.9, 1.15, 1.0, 1.2, 0.9] : 0.8,
         }}
         transition={{
           duration: 3.6,
-          repeat: hover ? Infinity : 0,
+          repeat: shouldPlay ? Infinity : 0,
           ease: "easeInOut",
         }}
       />
@@ -259,7 +269,7 @@ function FleetTile({ car, index }: { car: FleetVehicle; index: number }) {
             {String(index + 1).padStart(2, "0")} · {car.brand}
           </span>
           <motion.span
-            animate={{ scale: hover ? 1.2 : 1 }}
+            animate={{ scale: shouldPlay ? 1.2 : 1 }}
             className="h-2 w-2 rounded-full bg-accent"
           />
         </div>
@@ -269,7 +279,10 @@ function FleetTile({ car, index }: { car: FleetVehicle; index: number }) {
           </h3>
           <p className="mt-2 text-xs text-fg/55 sm:text-sm">{car.tagline}</p>
           <motion.div
-            animate={{ height: hover ? "auto" : 0, opacity: hover ? 1 : 0 }}
+            animate={{
+              height: shouldRevealSpecs ? "auto" : 0,
+              opacity: shouldRevealSpecs ? 1 : 0,
+            }}
             transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
             className="overflow-hidden"
           >
@@ -298,7 +311,7 @@ function FleetTile({ car, index }: { car: FleetVehicle; index: number }) {
       <motion.span
         aria-hidden
         className="absolute bottom-0 left-0 h-px bg-accent"
-        animate={{ width: hover ? "100%" : "0%" }}
+        animate={{ width: shouldPlay ? "100%" : "0%" }}
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
       />
     </motion.div>

@@ -43,6 +43,9 @@ export function Hero() {
   const [driveExists, setDriveExists] = useState(true);
 
   useEffect(() => {
+    // Skip cursor parallax on touch — it interferes with scroll and feels janky
+    const fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    if (!fine) return;
     const onMove = (e: PointerEvent) => {
       const w = window.innerWidth;
       const h = window.innerHeight;
@@ -138,7 +141,7 @@ export function Hero() {
       {/* Layer 2: refined cinematic title card — TOP CENTER, never blocking the car */}
       <motion.div
         style={{ y: titleY, opacity: titleOpacity }}
-        className="pointer-events-none absolute inset-x-0 top-10 z-[10] flex flex-col items-center sm:top-14"
+        className="pointer-events-none absolute inset-x-0 top-8 z-[10] flex flex-col items-center px-6 text-center sm:top-14"
       >
         <motion.span
           initial={{ opacity: 0, y: -8, letterSpacing: "0.6em" }}
@@ -191,15 +194,15 @@ export function Hero() {
         </motion.span>
       </motion.div>
 
-      {/* Layer 3: nav (top edges) */}
-      <header className="pointer-events-none absolute inset-x-0 top-10 z-[11] flex items-start justify-between px-6 sm:top-14 sm:px-12">
+      {/* Layer 3: nav (desktop only — mobile uses MobileNav overlay) */}
+      <header className="pointer-events-none absolute inset-x-0 top-10 z-[11] hidden items-start justify-between px-6 sm:top-14 sm:px-12 md:flex">
         <span
           className="pointer-events-auto font-mono text-[10px] uppercase tracking-[0.42em] text-fg/55"
           data-cursor="hover"
         >
           MIA · 24/7
         </span>
-        <nav className="pointer-events-auto hidden gap-8 pt-1 text-[10px] font-medium uppercase tracking-[0.32em] text-fg/60 md:flex">
+        <nav className="pointer-events-auto flex gap-8 pt-1 text-[10px] font-medium uppercase tracking-[0.32em] text-fg/60">
           <a
             href="#fleet"
             data-cursor="hover"
