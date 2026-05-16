@@ -238,8 +238,8 @@ function FleetTile({ car, index }: { car: FleetVehicle; index: number }) {
         )}
       </motion.div>
 
-      {/* Gradient overlay */}
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-black/30" />
+      {/* Gradient overlay — softer so the car reads bright */}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/75 via-black/5 to-black/15" />
 
       {/* Headlight ember when active */}
       <motion.div

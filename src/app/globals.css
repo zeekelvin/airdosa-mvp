@@ -1,12 +1,12 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-bg: #050505;
-  --color-fg: #f5f5f4;
-  --color-muted: #0e0e0e;
-  --color-line: rgba(255, 255, 255, 0.08);
+  --color-bg: #0d0e10;
+  --color-fg: #fafaf9;
+  --color-muted: #181a1d;
+  --color-line: rgba(255, 255, 255, 0.1);
   --color-accent: #f5e000;
-  --color-accent-soft: rgba(245, 224, 0, 0.12);
+  --color-accent-soft: rgba(245, 224, 0, 0.14);
 
   --font-display: var(--font-anton);
   --font-sans: var(--font-geist-sans);

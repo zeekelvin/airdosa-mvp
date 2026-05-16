@@ -117,8 +117,9 @@ export function RotationScrub() {
       id="rotate"
       className="relative h-[200vh] w-full bg-bg sm:h-[180vh]"
     >
-      <div className="sticky top-0 h-[100svh] w-full overflow-hidden">
-        {/* Rotation video */}
+      <div className="sticky top-0 flex h-[100svh] w-full items-center justify-center overflow-hidden">
+        {/* Rotation video — mobile: contain (full car, atmosphere fills letterbox)
+            Desktop: cover (full-bleed cinematic) */}
         <video
           ref={videoRef}
           src="/assets/rotation.mp4"
@@ -129,12 +130,12 @@ export function RotationScrub() {
           preload="auto"
           autoPlay={isTouch}
           poster="/assets/hero-still.png"
-          className="absolute inset-0 h-full w-full object-cover object-center"
+          className="absolute inset-0 h-full w-full object-contain object-center sm:object-cover"
         />
 
-        {/* Cinematic vignette */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/60" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-transparent to-black/40" />
+        {/* Cinematic vignette — softened */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-black/25" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-black/15" />
 
         {/* Side progress bar */}
         <div className="absolute right-6 top-1/2 z-10 -translate-y-1/2 sm:right-12">

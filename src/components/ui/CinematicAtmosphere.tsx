@@ -159,14 +159,14 @@ export function CinematicAtmosphere({
         }}
       />
 
-      {/* Vignette breathing */}
+      {/* Vignette breathing — softened so the page reads brighter */}
       <motion.div
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse at center, transparent 35%, rgba(0,0,0,0.55) 78%, rgba(0,0,0,0.92) 100%)",
+            "radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.25) 85%, rgba(0,0,0,0.55) 100%)",
         }}
-        animate={{ opacity: [0.85, 1, 0.85] }}
+        animate={{ opacity: [0.6, 0.8, 0.6] }}
         transition={{ duration: 6.5, repeat: Infinity, ease: "easeInOut" }}
       />
 

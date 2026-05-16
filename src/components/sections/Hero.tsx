@@ -73,14 +73,16 @@ export function Hero() {
           className="absolute inset-[-4%] will-change-transform"
           style={{ x: carX, y: carY }}
         >
-          {/* Tier 3: still poster (always there) */}
+          {/* Tier 3: still poster (always there)
+              Mobile: object-contain so the whole car is visible (letterboxed
+              by the surrounding atmosphere). Desktop: object-cover. */}
           <Image
             src="/assets/hero-still.png"
             alt="Lamborghini Huracán STO"
             fill
             priority
             sizes="100vw"
-            className={`object-cover object-center transition-opacity duration-1000 ${
+            className={`object-contain object-center transition-opacity duration-1000 sm:object-cover ${
               loopReady || driveReady ? "opacity-0" : "opacity-100"
             }`}
           />
@@ -94,7 +96,7 @@ export function Hero() {
             preload="auto"
             poster="/assets/hero-still.png"
             onCanPlay={() => setLoopReady(true)}
-            className={`absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-1000 ${
+            className={`absolute inset-0 h-full w-full object-contain object-center transition-opacity duration-1000 sm:object-cover ${
               driveReady ? "opacity-0" : loopReady ? "opacity-100" : "opacity-0"
             }`}
           />
@@ -109,31 +111,31 @@ export function Hero() {
               preload="auto"
               onCanPlay={() => setDriveReady(true)}
               onError={() => setDriveExists(false)}
-              className={`absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-1000 ${
+              className={`absolute inset-0 h-full w-full object-contain object-center transition-opacity duration-1000 sm:object-cover ${
                 driveReady ? "opacity-100" : "opacity-0"
               }`}
             />
           )}
         </motion.div>
 
-        {/* Cinematic grade */}
+        {/* Cinematic grade — anchor the edges so the car reads sharp, keep midtones open */}
         <motion.div
           style={{ opacity: overlayOpacity }}
           className="absolute inset-0"
         >
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/45 to-black/65" />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-transparent to-black/25" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/45" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/20" />
         </motion.div>
 
-        {/* Cursor-tracked warm light */}
+        {/* Cursor-tracked warm light — present but not overpowering */}
         <motion.div
           aria-hidden
-          className="pointer-events-none absolute left-1/2 top-1/2 z-0 h-[70vh] w-[70vh] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-35 blur-3xl mix-blend-screen"
+          className="pointer-events-none absolute left-1/2 top-1/2 z-0 h-[70vh] w-[70vh] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-40 blur-3xl mix-blend-screen"
           style={{
             x: lightX,
             y: lightY,
             background:
-              "radial-gradient(closest-side, rgba(245,200,80,0.55), transparent 75%)",
+              "radial-gradient(closest-side, rgba(255,205,100,0.55), transparent 75%)",
           }}
         />
       </motion.div>
