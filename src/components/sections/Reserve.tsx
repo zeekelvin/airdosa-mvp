@@ -60,7 +60,7 @@ export function Reserve() {
           />
           <div className="mt-2 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
             <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-fg/40">
-              By submitting, you agree to be contacted by MVP concierge.
+              By submitting, you agree to be contacted by Cheche Exotics concierge.
             </p>
             <MagneticButton
               type="submit"
@@ -87,8 +87,8 @@ export function Reserve() {
       </div>
 
       <footer className="relative mt-32 flex flex-col items-start justify-between gap-6 px-6 font-mono text-[10px] uppercase tracking-[0.32em] text-fg/40 sm:flex-row sm:items-center sm:px-12">
-        <span>MVP · Miami · Est. 2026</span>
-        <span>Authorized independent dealer · No affiliation with Automobili Lamborghini S.p.A.</span>
+        <span>Cheche Exotics · Atlanta · Est. 2026</span>
+        <span>Independent luxury rental concierge · All vehicle marks property of their respective owners.</span>
       </footer>
     </section>
   );

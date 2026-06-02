@@ -143,48 +143,16 @@ export function Hero() {
       {/* Layer 2: refined cinematic title card — TOP CENTER, never blocking the car */}
       <motion.div
         style={{ y: titleY, opacity: titleOpacity }}
-        className="pointer-events-none absolute inset-x-0 top-8 z-[10] flex flex-col items-center px-6 text-center sm:top-14"
+        className="pointer-events-none absolute inset-x-0 top-24 z-[10] flex flex-col items-center px-6 text-center sm:top-36"
       >
         <motion.span
-          initial={{ opacity: 0, y: -8, letterSpacing: "0.6em" }}
-          animate={{ opacity: 1, y: 0, letterSpacing: "0.42em" }}
-          transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
-          className="font-mono text-[10px] uppercase text-fg/75 sm:text-[11px]"
-          style={{ letterSpacing: "0.42em" }}
-        >
-          AIRDOSA
-        </motion.span>
-        <motion.div
-          aria-hidden
-          initial={{ width: 0 }}
-          animate={{ width: 64 }}
-          transition={{ duration: 1.2, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-3 h-px bg-accent/70"
-        />
-        <motion.span
-          initial={{ opacity: 0, y: 6 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.1, delay: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-3 font-serif text-xs italic text-fg/60 sm:text-sm"
-          style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}
-        >
-          presents
-        </motion.span>
-        <motion.div
-          aria-hidden
-          initial={{ width: 0 }}
-          animate={{ width: 64 }}
-          transition={{ duration: 1.2, delay: 1.0, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-3 h-px bg-accent/70"
-        />
-        <motion.span
-          initial={{ opacity: 0, y: 12, letterSpacing: "0.5em" }}
-          animate={{ opacity: 1, y: 0, letterSpacing: "0.32em" }}
+          initial={{ opacity: 0, y: 12, letterSpacing: "0.4em" }}
+          animate={{ opacity: 1, y: 0, letterSpacing: "0.22em" }}
           transition={{ duration: 1.6, delay: 1.0, ease: [0.22, 1, 0.36, 1] }}
           className="mt-4 font-display text-3xl uppercase text-fg sm:text-4xl"
-          style={{ letterSpacing: "0.32em" }}
+          style={{ letterSpacing: "0.22em" }}
         >
-          MVP
+          Cheche Exotics
         </motion.span>
         <motion.span
           initial={{ opacity: 0 }}
@@ -192,42 +160,10 @@ export function Hero() {
           transition={{ duration: 1.4, delay: 1.6 }}
           className="mt-4 max-w-md text-center font-mono text-[10px] uppercase tracking-[0.32em] text-fg/45"
         >
-          Luxury · Performance · Concierge Rental
+          Luxury in Motion · Concierge Service · Members Privilege
         </motion.span>
       </motion.div>
 
-      {/* Layer 3: nav (desktop only — mobile uses MobileNav overlay) */}
-      <header className="pointer-events-none absolute inset-x-0 top-10 z-[11] hidden items-start justify-between px-6 sm:top-14 sm:px-12 md:flex">
-        <span
-          className="pointer-events-auto font-mono text-[10px] uppercase tracking-[0.42em] text-fg/55"
-          data-cursor="hover"
-        >
-          MIA · 24/7
-        </span>
-        <nav className="pointer-events-auto flex gap-8 pt-1 text-[10px] font-medium uppercase tracking-[0.32em] text-fg/60">
-          <a
-            href="#fleet"
-            data-cursor="hover"
-            className="transition-colors hover:text-accent"
-          >
-            Fleet
-          </a>
-          <a
-            href="#rotate"
-            data-cursor="hover"
-            className="transition-colors hover:text-accent"
-          >
-            Showcase
-          </a>
-          <a
-            href="#reserve"
-            data-cursor="hover"
-            className="transition-colors hover:text-accent"
-          >
-            Reserve
-          </a>
-        </nav>
-      </header>
 
       {/* Layer 4: bottom tagline + CTAs */}
       <motion.div

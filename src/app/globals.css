@@ -1,15 +1,21 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-bg: #0d0e10;
-  --color-fg: #fafaf9;
-  --color-muted: #181a1d;
-  --color-line: rgba(255, 255, 255, 0.1);
-  --color-accent: #f5e000;
-  --color-accent-soft: rgba(245, 224, 0, 0.14);
+  /* Brand book — primary palette */
+  --color-bg: #0a0a0a;          /* matte black */
+  --color-fg: #ffffff;          /* pure white */
+  --color-muted: #121212;       /* midnight black — surfaces, cards */
+  --color-line: rgba(255, 255, 255, 0.08);
+  --color-border: #2a2a2a;      /* graphite gray — borders, dividers */
 
-  --font-display: var(--font-anton);
-  --font-sans: var(--font-geist-sans);
+  /* Brand book — accent palette */
+  --color-accent: #d4af37;      /* luxury gold — signature accent */
+  --color-accent-soft: rgba(212, 175, 55, 0.14);
+  --color-champagne: #f3d27a;   /* champagne gold — soft accent, gradients */
+  --color-silver: #c0c0c0;      /* silver — captions, fine print */
+
+  --font-display: var(--font-cinzel);
+  --font-sans: var(--font-montserrat);
   --font-mono: var(--font-geist-mono);
 }
 
@@ -45,8 +51,9 @@
 
   .font-display {
     font-family: var(--font-display);
-    letter-spacing: -0.02em;
-    line-height: 0.85;
+    letter-spacing: 0.01em;
+    line-height: 1.0;
+    font-weight: 500;
   }
 
   .font-mono {
@@ -57,6 +64,12 @@
 @layer utilities {
   .hairline {
     border-color: var(--color-line);
+  }
+  .text-champagne {
+    color: var(--color-champagne);
+  }
+  .text-silver {
+    color: var(--color-silver);
   }
   .grain::after {
     content: "";

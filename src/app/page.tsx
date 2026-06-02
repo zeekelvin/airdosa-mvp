@@ -11,22 +11,22 @@ export default function Home() {
       <Hero />
       <Marquee
         items={[
-          "Reserve a Drive",
-          "White-Glove Delivery",
-          "24/7 Concierge",
-          "Documented Service",
-          "Insurance Included",
-          "AIRDOSA Presents",
+          "Experience Excellence",
+          "Luxury in Motion",
+          "Drive Prestige",
+          "Arrive Different",
+          "Elevated Mobility",
+          "More Than a Ride",
         ]}
       />
       <RotationScrub />
       <Marquee
         items={[
-          "Six Machines",
-          "Zero Compromise",
-          "Luxury Performance",
-          "Hand-Picked Inventory",
-          "Miami · Worldwide",
+          "Concierge Delivery",
+          "Members Privilege",
+          "Atlanta · Worldwide",
+          "Reserve Your Experience",
+          "Elevate Your Journey",
         ]}
         baseDuration={40}
       />

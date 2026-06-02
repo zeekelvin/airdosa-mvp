@@ -5,10 +5,10 @@ import { AnimatePresence, motion } from "motion/react";
 import { Menu, X } from "lucide-react";
 
 const LINKS = [
-  { href: "#rotate", label: "Showcase", n: "01" },
-  { href: "#fleet", label: "Fleet", n: "02" },
-  { href: "#specs", label: "Performance", n: "03" },
-  { href: "#reserve", label: "Reserve", n: "04" },
+  { href: "/fleet", label: "Fleet", n: "01" },
+  { href: "/loyalty", label: "Loyalty", n: "02" },
+  { href: "/about", label: "About", n: "03" },
+  { href: "/contact", label: "Contact", n: "04" },
 ];
 
 export function MobileNav() {
@@ -103,17 +103,9 @@ export function MobileNav() {
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.4 }}
-                  className="block font-mono text-[10px] uppercase tracking-[0.42em] text-fg/55"
+                  className="block font-display text-xl uppercase tracking-[0.2em] text-fg"
                 >
-                  AIRDOSA · Presents
-                </motion.span>
-                <motion.span
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.5 }}
-                  className="mt-1 block font-display text-xl uppercase tracking-[0.28em] text-fg"
-                >
-                  MVP
+                  Cheche Exotics
                 </motion.span>
               </div>
 
@@ -150,13 +142,13 @@ export function MobileNav() {
                 className="flex flex-col gap-4"
               >
                 <a
-                  href="#reserve"
+                  href="/loyalty"
                   className="flex w-full items-center justify-center rounded-full bg-accent px-7 py-4 font-mono text-xs font-semibold uppercase tracking-[0.22em] text-black transition-colors hover:bg-accent/90"
                 >
-                  Reserve a Drive →
+                  Become a Member →
                 </a>
                 <span className="text-center font-mono text-[10px] uppercase tracking-[0.32em] text-fg/35">
-                  MIA · 24/7 Concierge
+                  ATL · 24/7 Concierge
                 </span>
               </motion.div>
             </div>

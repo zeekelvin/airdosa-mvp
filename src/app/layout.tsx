@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Anton } from "next/font/google";
+import { Montserrat, Geist_Mono, Cinzel } from "next/font/google";
 import "./globals.css";
 import { SmoothScroll } from "@/components/ui/SmoothScroll";
 import { MagneticCursor } from "@/components/ui/MagneticCursor";
 import { PageBackground } from "@/components/ui/PageBackground";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
 import { MobileNav } from "@/components/ui/MobileNav";
+import { SiteNav } from "@/components/ui/SiteNav";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const montserrat = Montserrat({
+  variable: "--font-montserrat",
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
 });
 
 const geistMono = Geist_Mono({
@@ -17,16 +19,16 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const anton = Anton({
-  variable: "--font-anton",
+const cinzel = Cinzel({
+  variable: "--font-cinzel",
   subsets: ["latin"],
-  weight: "400",
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
-  title: "MVP — Lamborghini Huracán STO · Available Now",
+  title: "Cheche Exotics — Experience Excellence",
   description:
-    "MVP is a curated dealership for the world's most uncompromising machines. Currently on the floor: Lamborghini Huracán STO. Track-bred. Street-legal.",
+    "Cheche Exotics is a luxury mobility brand delivering premium exotic vehicle experiences — designed for individuals who value prestige, comfort, and excellence.",
 };
 
 export default function RootLayout({
@@ -37,13 +39,14 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${anton.variable}`}
+      className={`${montserrat.variable} ${geistMono.variable} ${cinzel.variable}`}
     >
       <body className="has-cursor min-h-screen bg-bg text-fg">
         <PageBackground />
         <SmoothScroll />
         <MagneticCursor />
         <ScrollProgress />
+        <SiteNav />
         <MobileNav />
         {children}
       </body>

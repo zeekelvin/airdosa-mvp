@@ -47,3 +47,7 @@ yarn-error.log*
 next-env.d.ts
 
 .vercel
+
+# Working brand docs (don't commit — uploaded for reference only)
+*.pdf.docx
+~$*.docx
